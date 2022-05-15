@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nilutpal Baruah</title>
+    <!-- CSS only -->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="faav.ico">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+</head>
+<body>
+
+<div class="well" id="well">
+
+    <div id="intro" class="panel">
+    
+           <div class="intro-content">
+               <div class="row">
+                   <div class="scene">
+                    <div class="rocket">
+                        <img src="rocket.png" width = "50" height = "70">
+                    </div>
+                   </div>
+            
+                       <h5 id="home">Hello, World.</h5>
+                       <h1 id="myname">I'm Nilutpal Baruah.</h1>
+    
+                       <p class="intro-position">
+                           <span>Competitive Programmer</span>
+                           <span>Developer</span>
+                           <span>Wanderer</span>  
+                       </p>
+                       <div>
+                           <a href="Resume.pdf"> <button type="button" class="btn btn-primary btn-lg"><h2>Download Resume</h2></button></a>
+                       
+                    </div>
+               </div>
+    
+           </div> <!-- /intro-content -->
+        <div class="stars"></div>
+        <div class="twinkling"></div>
+           <ul class="intro-social">
+                
+             <li id="facebook"><a target="_blank" href="https://twitter.com/Nilotpal6317670"> <i class="fa-brands fa-twitter"></i> </a></li>
+             <li><a target="_blank" href="https://www.instagram.com/nilotpalbarua/"><i class="fa-brands fa-instagram"></i> </a></li>
+             <li id="github"><a target="_blank" href="https://github.com/nilutpalbr"><i class="fa-brands fa-github"></i></a></li>
+             <li><a target="_blank" href="https://www.linkedin.com/in/nilutpal-baruah-b448a01b8/"><i class="fa-brands fa-linkedin"></i></a></li>
+             
+          </ul> <!-- /intro-social -->      	
+    
+       </div> <!-- /intro -->
+  
+    
+    <div class="panel" id="about">
+        <div class="about">
+            <div class="about-overlay"></div>
+            <div class="pic-container">
+                <img src="me.jpg" alt="my picture" id="dp">
+                <div class="description">
+                    <h1 style="margin: 0;">About Me</h1>
+                    <p>
+                        I am Nilutpal, a 21 old software engineer.
+                        I am currently pursuing my Bachelor's of Technology in Computer Science and Engineering from AEC,Guwahati,India.
+                        I love solving problems and enjoy working on projects where approaching design and development
+                        as co-dependent processes can lead to smarter solutions and a better overall product experience for fellow humans.
+                        If you have an exciting project in mind, or just wanna chat, <a id="mail" href="mailto:nilutpalb64@gmail.com"> <h2 id="lastSentense"><em>get in touch with me here</em></h2> </a> :)</p>
+                </div>
+            </div>
+    
+        </div>
+    </div>
+           
+    </div>
+    
+
+    
+    </body>
+    <script>
+        function stars(){
+            let count=25;
+           let scene= document.querySelector('.scene');
+           let i=0;
+           while(i<count){
+               let star= document.createElement('i');
+               let x= Math.floor(Math.random()*window.innerWidth);
+               let duration=Math.random()*1;
+               let h=Math.random()*100;
+               star.style.left= x+ 'px';  
+               star.style.width=1+'px';
+               star.style.height=h+'px';
+               star.style.animationDuration=duration+'s';
+               scene.appendChild(star);
+               i++;
+           } 
+        }
+        stars();
+    </script>
+    <script>
+        (function() {
+            "use strict";
+            /*[pan and well CSS scrolls]*/
+            var pnls = document.querySelectorAll('.panel').length,
+                    scdir, hold = false;
+    
+            function _scrollY(obj) {
+                var slength, plength, pan, step = 100,
+                        vh = window.innerHeight / 100,
+                        vmin = Math.min(window.innerHeight, window.innerWidth) / 100;
+                if ((this !== undefined && this.id === 'well') || (obj !== undefined && obj.id === 'well')) {
+                    pan = this || obj;
+                    plength = parseInt(pan.offsetHeight / vh);
+                }
+                if (pan === undefined) {
+                    return;
+                }
+                plength = plength || parseInt(pan.offsetHeight / vmin);
+                slength = parseInt(pan.style.transform.replace('translateY(', ''));
+                if (scdir === 'up' && Math.abs(slength) < (plength - plength / pnls)) {
+                    slength = slength - step;
+                } else if (scdir === 'down' && slength < 0) {
+                    slength = slength + step;
+                } else if (scdir === 'top') {
+                    slength = 0;
+                }
+                if (hold === false) {
+                    hold = true;
+                    pan.style.transform = 'translateY(' + slength + 'vh)';
+                    setTimeout(function() {
+                        hold = false;
+                    }, 1000);
+                }
+                console.log(scdir + ':' + slength + ':' + plength + ':' + (plength - plength / pnls));
+            }
+            /*[swipe detection on touchscreen devices]*/
+            function _swipe(obj) {
+                var swdir,
+                        sX,
+                        sY,
+                        dX,
+                        dY,
+                        threshold = 20,
+                        /*[min distance traveled to be considered swipe]*/
+                        slack = 20,
+                        /*[max distance allowed at the same time in perpendicular direction]*/
+                        alT = 50,
+                        /*[max time allowed to travel that distance]*/
+                        elT, /*[elapsed time]*/
+                        stT; /*[start time]*/
+                obj.addEventListener('touchstart', function(e) {
+                    var tchs = e.changedTouches[0];
+                    swdir = 'none';
+                    sX = tchs.pageX;
+                    sY = tchs.pageY;
+                    stT = new Date().getTime();
+                    //e.preventDefault();
+                }, false);
+    
+                obj.addEventListener('touchmove', function(e) {
+                    e.preventDefault(); /*[prevent scrolling when inside DIV]*/
+                }, false);
+    
+                obj.addEventListener('touchend', function(e) {
+                    var tchs = e.changedTouches[0];
+                    dX = tchs.pageX - sX;
+                    dY = tchs.pageY - sY;
+                    elT = new Date().getTime() - stT;
+                    if (elT <= alT) {
+                        if (Math.abs(dX) >= threshold && Math.abs(dY) <= slack) {
+                            swdir = (dX < 0) ? 'left' : 'right';
+                        } else if (Math.abs(dY) >= threshold && Math.abs(dX) <= slack) {
+                            swdir = (dY < 0) ? 'up' : 'down';
+                        }
+                        if (obj.id === 'well') {
+                            if (swdir === 'up') {
+                                scdir = swdir;
+                                _scrollY(obj);
+                            } else if (swdir === 'down' && obj.style.transform !== 'translateY(0)') {
+                                scdir = swdir;
+                                _scrollY(obj);
+    
+                            }
+                            e.stopPropagation();
+                        }
+                    }
+                }, false);
+            }
+            /*[assignments]*/
+            var well = document.getElementById('well');
+            well.style.transform = 'translateY(0)';
+            well.addEventListener('wheel', function(e) {
+                if (e.deltaY < 0) {
+                    scdir = 'down';
+                }
+                if (e.deltaY > 0) {
+                    scdir = 'up';
+                }
+                e.stopPropagation();
+            });
+            well.addEventListener('wheel', _scrollY);
+            _swipe(well);
+            var tops = document.querySelectorAll('.top');
+            for (var i = 0; i < tops.length; i++) {
+                tops[i].addEventListener('click', function() {
+                    scdir = 'top';
+                    _scrollY(well);
+                });
+            }
+        })();
+    </script>
+</body>
+</html>
